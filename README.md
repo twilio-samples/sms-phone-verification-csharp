@@ -47,7 +47,7 @@ After the above requirements have been met:
 1. Clone this repository and `cd` into it
 
 ```bash
-git clone git@github.com:TwilioDevEd/verify-v2-quickstart-csharp.git
+git clone git@github.com:twilio-samples/sms-phone-verification-csharp.git
 cd verify-v2-quickstart-csharp/VerifyV2Quickstart/
 ```
 
