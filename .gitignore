@@ -339,5 +339,7 @@ ASALocalRun/
 # Ignore local DB
 **.db
 
-# Ignore twilio configuration file
-VerifyV2Quickstart/twilio.json
+# Environment and sensitive configuration files
+.env
+.env.local
+appsettings.Development.json

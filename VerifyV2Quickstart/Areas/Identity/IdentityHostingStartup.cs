@@ -18,7 +18,7 @@ namespace VerifyV2Quickstart.Areas.Identity
 
                 services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                services.AddMvc()
                     .AddRazorPagesOptions(options =>
                     {
                         options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");

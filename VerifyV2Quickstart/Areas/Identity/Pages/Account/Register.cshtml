@@ -4,46 +4,72 @@
     ViewData["Title"] = "Register";
 }
 
-@section header
-{
-    <h1>Register</h1>
-}
+<div class="card">
+    <h1 class="card-title">Create Account</h1>
 
-<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Input.UserName"></label>
-        <input asp-for="Input.UserName" class="form-control"/>
-        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div asp-validation-summary="All" class="alert alert-error"></div>
+
+        <div class="form-group">
+            <label asp-for="Input.UserName" class="form-label">Username</label>
+            <input asp-for="Input.UserName" class="form-control"/>
+            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Input.Password" class="form-label">Password</label>
+            <input asp-for="Input.Password" class="form-control" type="password"/>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Input.PhoneNumber" class="form-label">Phone Number</label>
+            <input asp-for="Input.PhoneNumber" class="form-control" type="tel" id="phone_number"/>
+            <input type="hidden" asp-for="Input.FullPhoneNumber"/>
+            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Verification Method</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    @Html.RadioButtonFor(model => model.Input.Channel, "sms", new { @checked = "checked" })
+                    <span>SMS</span>
+                </label>
+                <label class="radio-label">
+                    @Html.RadioButtonFor(model => model.Input.Channel, "call")
+                    <span>Call</span>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full-width">Register</button>
+    </form>
+
+    <hr class="divider" />
+
+    <div class="text-center">
+        <p>Already have an account? <a asp-area="Identity" asp-page="/Account/Login">Login</a></p>
     </div>
-    <div class="form-group">
-        <label asp-for="Input.Password"></label>
-        <input asp-for="Input.Password" class="form-control"/>
-        <span asp-validation-for="Input.Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.PhoneNumber"></label>
-        <input asp-for="Input.PhoneNumber" class="form-control"/>
-        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        SMS
-        @Html.RadioButtonFor(model => model.Input.Channel, "sms")
-        Call
-        @Html.RadioButtonFor(model => model.Input.Channel, "call")
-    </div>
-    <button type="submit" class="btn btn-default">Register</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/intlTelInput.js"></script>
     <script>
-      var input = document.querySelector("#Input_PhoneNumber");
-      window.intlTelInput(input, {
-        hiddenInput: "Input.FullPhoneNumber",
-        preferredCountries: ["us", "gb", "co", "de"],
-        utilsScript: "/js/utils.js"
+      const input = document.querySelector("#phone_number");
+      const iti = window.intlTelInput(input, {
+        initialCountry: "us",
+        preferredCountries: ["us", "gb", "ca", "au"],
+        separateDialCode: true,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.0.0/build/js/utils.js"
+      });
+
+      input.form.addEventListener('submit', function(e) {
+        const fullNumber = iti.getNumber();
+        const hiddenInput = document.querySelector('input[name="Input.FullPhoneNumber"]');
+        if (hiddenInput) {
+          hiddenInput.value = fullNumber;
+        }
       });
     </script>
 }

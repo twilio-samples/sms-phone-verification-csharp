@@ -2,22 +2,35 @@
     ViewData["Title"] = "Users";
 }
 
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Phone Number</th>
-      <th>Verified</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach (var user in ViewBag.Users)
-    {
-      <tr>
-        <td>@user.UserName</td>
-        <td>@user.PhoneNumber</td>
-        <td>@user.Verified</td>
-      </tr>
-    }
-  </tbody>
-</table>
+<div class="card">
+    <h1 class="card-title">Registered Users</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Phone Number</th>
+          <th>Verified</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var user in ViewBag.Users)
+        {
+          <tr>
+            <td>@user.UserName</td>
+            <td>@user.PhoneNumber</td>
+            <td>
+              @if (user.Verified)
+              {
+                <span style="color: var(--color-success);">✓ Verified</span>
+              }
+              else
+              {
+                <span style="color: var(--color-error);">✗ Not Verified</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+</div>
