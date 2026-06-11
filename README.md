@@ -2,6 +2,18 @@
 
 An ASP.NET Core MVC application with user registration, authentication, and SMS phone verification using Twilio Verify. Users create an account, verify their phone number via OTP, and access protected content.
 
+![Register](assets/register.png)
+
+![Verify](assets/verify.png)
+
+## Features
+
+- 📱 SMS and voice-based phone verification
+- 🔐 User registration with secure password storage
+- ✅ Phone number verification flow
+- 🎨 Modern UI built with Twilio Paste design system
+- 💾 SQLite database with Entity Framework Core
+
 ## Set up
 
 ### Requirements
@@ -60,11 +72,37 @@ An ASP.NET Core MVC application with user registration, authentication, and SMS 
 
 7. Open http://localhost:5000 to register an account and verify your phone number.
 
+## Docker
+
+If you have [Docker](https://www.docker.com/) already installed on your machine, you can use our `docker-compose.yml` to setup your project.
+
+1. Make sure you have the project cloned.
+2. Setup the `appsettings.Development.json` file as outlined in the [Local Development](#local-development) steps.
+3. Run `docker-compose up`.
+
+## Tests
+
+You can run the tests locally by typing:
+
+```bash
+dotnet test
+```
+
 ## Resources
 
 - [Twilio Verify API Documentation](https://www.twilio.com/docs/verify/api)
+- [Twilio C# SDK Documentation](https://www.twilio.com/docs/libraries/reference/twilio-csharp)
+- [ASP.NET Core Documentation](https://docs.microsoft.com/aspnet/core)
 - [SMS Phone Verification CodeExchange Page](https://www.twilio.com/code-exchange/sms-phone-verification)
+
+## Contributing
+
+This template is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
 [MIT](http://www.opensource.org/licenses/mit-license.html)
+
+## Disclaimer
+
+No warranty expressed or implied. Software is as is.
