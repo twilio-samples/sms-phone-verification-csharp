@@ -1,101 +1,86 @@
-<a  href="https://www.twilio.com">
-<img  src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg"  alt="Twilio"  width="250"  />
-</a>
+# Build a User Registration System with SMS Phone Verification
 
-# Twilio Verify Quickstart with .NET core
+An ASP.NET Core MVC application with user registration, authentication, and SMS phone verification using Twilio Verify. Users create an account, verify their phone number via OTP, and access protected content.
 
-![](https://github.com/TwilioDevEd/verify-v2-quickstart-csharp/workflows/dotNETCore/badge.svg)
+![Register](assets/register.png)
 
+![Verify](assets/verify.png)
 
-## About
+## Features
 
-This application example demonstrates how to do Simple phone verification with C# ASP.NET Core MVC, and Twilio Verify.
-
-<!--
-Implementations in other languages:
-
-| Python | Java | Ruby | PHP | Node |
-| :--- | :--- | :----- | :-- | :--- |
-| [Done](https://github.com/TwilioDevEd/verify-v2-quickstart-python) | [Done](https://github.com/TwilioDevEd/verify-v2-quickstart-java)  | [Done](https://github.com/TwilioDevEd/verify-v2-quickstart-rails)    | [Done](https://github.com/TwilioDevEd/verify-v2-quickstart-php) | [Done](https://github.com/TwilioDevEd/verify-v2-quickstart-node)  |
-
-
--->
+- 📱 SMS and voice-based phone verification
+- 🔐 User registration with secure password storage
+- ✅ Phone number verification flow
+- 🎨 Modern UI built with Twilio Paste design system
+- 💾 SQLite database with Entity Framework Core
 
 ## Set up
 
 ### Requirements
 
-- [dotnet](https://dotnet.microsoft.com/)
-- A Twilio account - [sign up](https://www.twilio.com/try-twilio)
+- [.NET SDK](https://dotnet.microsoft.com/download) 10.0+
+- [A Twilio Verify Service](https://console.twilio.com/?frameUrl=/console/verify/services)
 
 ### Twilio Account Settings
 
-This application should give you a ready-made starting point for writing your
-own application. Before we begin, we need to collect
-all the config values we need to run the application:
-
-| Config&nbsp;Value | Description                                                                                                                                                  |
-| :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Account&nbsp;Sid  | Your primary Twilio account identifier - find this [in the Console](https://www.twilio.com/console).                                                         |
-| Auth&nbsp;Token   | Used to authenticate - [just like the above, you'll find this here](https://www.twilio.com/console).                                                         |
-| Verification&nbsp;Sid |  For Verification Service SID. You can generate one [here](https://www.twilio.com/console/verify/services) |
+| Config Value | Description |
+| :----------- | :---------- |
+| TWILIO_ACCOUNT_SID | Your Twilio Account SID from the [Console](https://www.twilio.com/console) |
+| TWILIO_AUTH_TOKEN | Your Twilio Auth Token from the [Console](https://www.twilio.com/console) |
+| TWILIO_VERIFICATION_SID | Create a Verify Service [here](https://www.twilio.com/console/verify/services) |
 
 ### Local development
 
-After the above requirements have been met:
+1. Clone this repository and `cd` into it.
 
-1. Clone this repository and `cd` into it
+   ```bash
+   git clone git@github.com:twilio-samples/sms-phone-verification-csharp.git
+   cd sms-phone-verification-csharp/VerifyV2Quickstart
+   ```
 
-```bash
-git clone git@github.com:twilio-samples/sms-phone-verification-csharp.git
-cd verify-v2-quickstart-csharp/VerifyV2Quickstart/
-```
+2. Install dependencies.
 
-2. Build to install the dependencies
+   ```bash
+   dotnet build
+   ```
 
-```bash
-dotnet build
-```
+3. Install EF Core CLI (if not already installed).
 
-3. Set your environment variables
+   ```bash
+   dotnet tool install --global dotnet-ef
+   ```
 
-```bash
-cp VerifyV2Quickstart/twilio.json.example VerifyV2Quickstart/twilio.json
-```
+4. Set your environment variables.
 
-See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
+   ```bash
+   cp appsettings.Development.json.example appsettings.Development.json
+   ```
 
-4. Install [EF Core CLI](https://docs.microsoft.com/en-gb/ef/core/what-is-new/ef-core-3.0/breaking-changes#the-ef-core-command-line-tool-dotnet-ef-is-no-longer-part-of-the-net-core-sdk) if it's not already installed.
+   Edit `appsettings.Development.json` with your Twilio credentials.
 
-```
-dotnet tool install --global dotnet-ef --version 8.0.0
-```
+5. Create the database.
 
-5. Create the local DB. This also should be executed in `VerifyV2Quickstart` directory.
+   ```bash
+   dotnet ef database update
+   ```
 
-```
-dotnet ef database update
-```
+6. Run the application.
 
-6. Run the application
+   ```bash
+   dotnet run
+   ```
 
-```bash
-dotnet run
-```
+7. Open http://localhost:5000 to register an account and verify your phone number.
 
-7. Navigate to [http://localhost:5000](http://localhost:5000)
-
-That's it!
-
-### Docker
+## Docker
 
 If you have [Docker](https://www.docker.com/) already installed on your machine, you can use our `docker-compose.yml` to setup your project.
 
 1. Make sure you have the project cloned.
-2. Setup the `twilio.json` file as outlined in the [Local Development](#local-development) steps.
+2. Setup the `appsettings.Development.json` file as outlined in the [Local Development](#local-development) steps.
 3. Run `docker-compose up`.
 
-### Tests
+## Tests
 
 You can run the tests locally by typing:
 
@@ -105,13 +90,14 @@ dotnet test
 
 ## Resources
 
-- The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
+- [Twilio Verify API Documentation](https://www.twilio.com/docs/verify/api)
+- [Twilio C# SDK Documentation](https://www.twilio.com/docs/libraries/reference/twilio-csharp)
+- [ASP.NET Core Documentation](https://docs.microsoft.com/aspnet/core)
+- [SMS Phone Verification CodeExchange Page](https://www.twilio.com/code-exchange/sms-phone-verification)
 
 ## Contributing
 
 This template is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
-
-[Visit the project on GitHub](https://github.com/twilio-labs/sample-template-dotnet)
 
 ## License
 
@@ -120,5 +106,3 @@ This template is open source and welcomes contributions. All contributions are s
 ## Disclaimer
 
 No warranty expressed or implied. Software is as is.
-
-[twilio]: https://www.twilio.com

@@ -1,0 +1,7 @@
+{
+  "Twilio": {
+    "AccountSid": "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "AuthToken": "your_auth_token_here",
+    "VerificationSid": "VAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}

@@ -2,39 +2,44 @@
 @model VerifyModel
 
 @{
-    ViewBag.Title = "Verify Phone Number";
+    ViewData["Title"] = "Verify Phone Number";
 }
 
-@section header
-{
-    <h1>Verify Phone Number</h1>
-}
+<div class="card">
+    <h1 class="card-title">Verify Your Phone</h1>
+    <p class="mb-60">Enter the verification code sent to your phone number.</p>
 
-<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div asp-validation-summary="All" class="alert alert-error"></div>
+
+        <div class="form-group">
+            <label asp-for="Input.Code" class="form-label">Verification Code</label>
+            <input asp-for="Input.Code" class="form-control verification-code-input" maxlength="6" placeholder="000000"/>
+            <span asp-validation-for="Input.Code" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full-width">Verify Code</button>
+    </form>
+
+    <hr class="divider" />
+
     <div>
-        <label asp-for="Input.Code"></label>
-        <input asp-for="Input.Code" class="form-control"/>
-        <span asp-validation-for="Input.Code" class="text-danger"></span>
+        <h3 class="mb-60">Didn't receive the code?</h3>
+        <div class="form-group">
+            <label class="form-label">Resend via:</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input name="channel" type="radio" value="sms" checked="checked"/>
+                    <span>SMS</span>
+                </label>
+                <label class="radio-label">
+                    <input name="channel" type="radio" value="call"/>
+                    <span>Call</span>
+                </label>
+            </div>
+        </div>
+        <button type="button" id="resend" class="btn btn-secondary btn-full-width">Resend Code</button>
     </div>
-    <div>
-        <button type="submit" class="btn btn-default">Verify</button>
-    </div>
-</form>
-
-<hr/>
-
-<h4>Didn't you receive the code?</h4>
-<div class="row">
-  <div class="col-75">
-    <div class="form-group">
-        <label><input name="channel" type="radio" value="sms" checked="checked"/>SMS</label>
-        <label><input name="channel" type="radio" value="call"/>Call</label>
-    </div>
-  </div>
-  <div class="col-25">
-    <button name="form-submit" type="submit" id="resend">Resend</button>
-  </div>
 </div>
 
 @section Scripts {
@@ -47,24 +52,24 @@
                 url: '@Url.Content("~/api/Verify")',
                 method: 'POST',
                 data: {
-                  channel: $('input[name=channel]').val()
+                  channel: $('input[name=channel]:checked').val()
                 },
                 success: function(result) {
                     if(result.isValid === true) {
-                        showMessages(['New code sent to the registered phone number']);
+                        showMessage('New code sent to your phone number', 'success');
                     } else {
-                        showMessages(result.errors);
+                        showMessage(result.errors.join(', '), 'error');
                     }
                 },
                 error: function() {
-                    showMessages('Request failed: check your internet connection');
+                    showMessage('Request failed: check your internet connection', 'error');
                 }
             })
         });
     });
-    function showMessages(messages) {
+    function showMessage(message, type) {
         $('#messages').html(
-            '<ul>' + messages.map(function(message){ return '<li>'+message+'</li>' }).join('') + '</ul>'
+            '<div class="alert alert-' + type + '">' + message + '</div>'
         );
     }
     </script>

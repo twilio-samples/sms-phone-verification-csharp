@@ -1,25 +1,32 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Twilio Verify</title>
-
-    <link rel="stylesheet" href="~/css/style.css" />
-    <link rel="stylesheet" href="~/css/intlTelInput.css"/>
+    <link rel="stylesheet" href="https://assets.twilio.com/public_assets/paste-fonts/1.5.2/fonts.css">
+    <link rel="stylesheet" href="~/css/paste.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.0.0/build/css/intlTelInput.css">
 </head>
 <body>
-    <nav>
-        <h1>Twilio Verify</h1>
-        <partial name="_LoginPartial" />
-    </nav>
-    <section class="content">
-        <header>
-            @RenderSection("Header", false)
-        </header>
-        <section id="messages"></section>
-        @RenderBody()
-    </section>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">Twilio Verify</a>
+            <partial name="_LoginPartial" />
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section id="messages"></section>
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Powered by Twilio Verify API</p>
+    </footer>
+
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
     </environment>
@@ -31,6 +38,7 @@
                 integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
         </script>
     </environment>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.0.0/build/js/intlTelInput.min.js"></script>
     @RenderSection("Scripts", false)
 </body>
 </html>

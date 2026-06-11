@@ -59,7 +59,7 @@ namespace VerifyV2Quickstart
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc();
 
             services.AddSingleton<IVerification>(new Verification(
                 Configuration.GetSection("Twilio").Get<Configuration.Twilio>()));
@@ -71,7 +71,6 @@ namespace VerifyV2Quickstart
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
